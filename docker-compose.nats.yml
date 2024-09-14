@@ -1,0 +1,14 @@
+services:
+
+  personal-shopper-nats:
+    image: nats:latest
+    container_name: personal-shopper-nats
+    ports:
+      - 4223:4223
+    restart: always
+    networks:
+      - personal-shopper_net
+
+networks:
+  personal-shopper_net:
+    name: personal-shopper_net

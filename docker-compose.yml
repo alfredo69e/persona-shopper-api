@@ -1,0 +1,102 @@
+services:
+
+  personal-shopper-nats:
+    image: nats:latest
+    container_name: personal-shopper-nats
+    command: "-c /etc/nats/nats-server.conf"
+    ports:
+      - 4223:4223
+    restart: always
+    volumes:
+      - ./nats-server.conf:/etc/nats/nats-server.conf
+    networks:
+      - personal-shopper_net
+
+  personal-shopper-api-gateway-ms:
+    image: personal-shopper-api-gateway-ms:${APP_VERSION}
+    container_name: personal-shopper-api-gateway-ms
+    build:
+      context: ./api-gateway-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    env_file: ./api-gateway-ms/.env
+    restart: always
+    volumes:
+      - ./api-gateway-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
+  personal-shopper-auth-ms:
+    image: personal-shopper-auth-ms:${APP_VERSION}
+    container_name: personal-shopper-auth-ms
+    build:
+      context: ./auth-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    env_file: ./auth-ms/.env
+    restart: always
+    volumes:
+      - ./auth-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
+  personal-shopper-files-ms:
+    image: personal-shopper-files-ms:${APP_VERSION}
+    container_name: personal-shopper-files-ms
+    build:
+      context: ./files-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    env_file: ./files-ms/.env
+    restart: always
+    volumes:
+      - ./files-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
+  personal-shopper-roles-ms:
+    image: personal-shopper-roles-ms:${APP_VERSION}
+    container_name: personal-shopper-roles-ms
+    build:
+      context: ./roles-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    env_file: ./roles-ms/.env
+    restart: always
+    volumes:
+      - ./roles-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
+  personal-shopper-users-ms:
+    image: personal-shopper-users-ms:${APP_VERSION}
+    container_name: personal-shopper-users-ms
+    build:
+      context: ./users-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    env_file: ./users-ms/.env
+    restart: always
+    volumes:
+      - ./users-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
+      
+
+
+networks:
+  personal-shopper_net:
+    name: personal-shopper_net
