@@ -1,0 +1,15 @@
+[submodule "api-gateway-ms"]
+	path = api-gateway-ms
+	url = git@github.com:Personal-Shopper-Alfredo-Dev/api-gateway-ms.git
+[submodule "auth-ms"]
+	path = auth-ms
+	url = git@github.com:Personal-Shopper-Alfredo-Dev/auth-ms.git
+[submodule "files-ms"]
+	path = files-ms
+	url = git@github.com:Personal-Shopper-Alfredo-Dev/files-ms.git
+[submodule "roles-ms"]
+	path = roles-ms
+	url = git@github.com:Personal-Shopper-Alfredo-Dev/roles-ms.git
+[submodule "users-ms"]
+	path = users-ms
+	url = git@github.com:Personal-Shopper-Alfredo-Dev/users-ms.git
