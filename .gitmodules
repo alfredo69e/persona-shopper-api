@@ -16,3 +16,6 @@
 [submodule "products-ms"]
 	path = products-ms
 	url = git@github.com:Microservices-AllFixSoft/products-ms.git
+[submodule "medias-ms"]
+	path = medias-ms
+	url = git@github.com:Microservices-AllFixSoft/medias-ms.git

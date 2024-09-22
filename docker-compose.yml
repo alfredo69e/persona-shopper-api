@@ -94,6 +94,38 @@ services:
     depends_on:
       - personal-shopper-nats
 
+  personal-shopper-medias-ms:
+    image: personal-shopper-medias-ms:${APP_VERSION}
+    container_name: personal-shopper-medias-ms
+    build:
+      context: ./medias-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    env_file: ./medias-ms/.env
+    restart: always
+    volumes:
+      - ./medias-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
+  personal-shopper-products-ms:
+    image: personal-shopper-products-ms:${APP_VERSION}
+    container_name: personal-shopper-products-ms
+    build:
+      context: ./products-ms
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    env_file: ./products-ms/.env
+    restart: always
+    volumes:
+      - ./products-ms/src:/app/src
+    networks:
+      - personal-shopper_net
+    depends_on:
+      - personal-shopper-nats
+
       
 
 
