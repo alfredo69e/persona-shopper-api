@@ -4,8 +4,8 @@ services:
     image: nats:latest
     container_name: personal-shopper-nats
     command: "-c /etc/nats/nats-server.conf"
-    ports:
-      - 4223:4223
+    # ports:
+    #   - 4223:4223
     restart: always
     volumes:
       - ./nats-server.conf:/etc/nats/nats-server.conf
